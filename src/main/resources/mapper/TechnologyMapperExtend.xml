@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yongqiang.wms.mapper.TechnologyMapper">
+    <select id="selectTechByPage"  resultType="com.yongqiang.wms.model.stock.Technology">
+      select * from technology
+      where 1=1
+    <if test="record.id != null and record.id !=''">
+        and id = #{record.id}
+    </if>
+  	</select>
+</mapper>

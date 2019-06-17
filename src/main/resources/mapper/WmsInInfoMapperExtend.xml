@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yongqiang.wms.mapper.WmsInInfoMapper">
+    <select id="selectInfoByPage"  resultType="com.yongqiang.wms.model.stock.WmsInInfo">
+      select * from wms_in_info
+        <where>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER}
+            </if>
+            <if test="record.whsInCode != null">
+                and whs_in_code like CONCAT('%',#{record.whsInCode,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="record.clientName != null">
+                and client_name like CONCAT('%',#{record.clientName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="record.brand != null">
+                and brand like CONCAT('%',#{record.brand,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="record.classes != null">
+                and classes like CONCAT('%',#{record.classes,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="record.createEndTime !=null">
+                and create_time &lt;= #{record.createEndTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="record.createStartTime !=null">
+                and create_time &gt;= #{record.createStartTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+      order by create_time desc
+  	</select>
+    <select id="getLastRecordByDate" resultType="com.yongqiang.wms.model.stock.WmsInInfo">
+        select * from wms_in_info a
+        <where>
+            <if test="record.createEndTime !=null">
+                create_time &lt;= #{record.createEndTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="record.createStartTime !=null">
+                and create_time &gt;= #{record.createStartTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        order by create_time desc
+        limit 1
+    </select>
+</mapper>

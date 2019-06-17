@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yongqiang.wms.mapper.PermissionMapper">
+    <sql id="permission_column">
+        p.id,p.account_id,
+        p.parent,p.parent_path,
+        p.type, p.componet_name, icon_cls, p.url, p.code, p.name,
+        p.seq, p.remark,p.delete_flag,
+        p.creator, p.creator_name, p.create_time,
+        p.modifier, p.modifier_name, p.modify_time
+    </sql>
+
+    <select id="getAllPermission" resultType="com.yongqiang.wms.model.user.Permission" >
+        SELECT
+        <include refid="permission_column"/>
+        FROM permission p
+        WHERE p.delete_flag = 0
+        order by seq
+    </select>
+
+    <!--<select id="findPermissionsOfUser" resultType="com.zhaogang.ii.saas.cloudstore.rbac.sdk.model.Permission" parameterType="long">-->
+        <!--SELECT-->
+        <!--<include refid="permission_column"/>-->
+        <!--FROM rbac_permission p-->
+        <!--JOIN rbac_role_permission rp on p.id=rp.permission_id-->
+        <!--JOIN rbac_user_role ur on rp.role_id =ur.role_id-->
+        <!--WHERE ur.user_id = #{userId}-->
+    <!--</select>-->
+</mapper>
